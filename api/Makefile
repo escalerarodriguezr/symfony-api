@@ -58,6 +58,7 @@ generate-ssh-keys: ## Generates SSH keys for JWT library
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} mkdir -p config/jwt
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} openssl genrsa -passout pass:b039b83f8c7dd8aa893ff83a83f814f5 -out config/jwt/private.pem -aes256 4096
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} openssl rsa -pubout -passin pass:b039b83f8c7dd8aa893ff83a83f814f5 -in config/jwt/private.pem -out config/jwt/public.pem
+	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} chmod 644 config/jwt/private.pem
 
 all-tests: ## Runs Unit and Functional tests
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bin/phpunit
