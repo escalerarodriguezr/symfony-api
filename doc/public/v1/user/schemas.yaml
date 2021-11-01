@@ -1,0 +1,11 @@
+UserEntity:
+  $ref: './user/userEntity.yaml'
+UsersSearchView:
+  $ref: './user/usersSearchView.yaml'
+
+
+
+
+
+
+

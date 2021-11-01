@@ -1,0 +1,20 @@
+api_login_check:
+  path: /api/login_check
+
+#USERS ENDPOINTS
+api_create_user:
+  path: /register/v1/user
+  controller: App\Controller\User\CreateUserController
+  methods: [POST]
+api_update_user:
+  path: /api/v1/user/{id}
+  controller: App\Controller\User\UpdateUserController
+  methods: [PUT]
+api_get_user:
+  path: /api/v1/user/{id}
+  controller: App\Controller\User\GetUserByIdController
+  methods: [GET]
+api_change_password_user:
+  path: /api/v1/user/{id}/change-password
+  controller: App\Controller\User\ChangePasswordUserController
+  methods: [PUT]

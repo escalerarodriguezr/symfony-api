@@ -1,0 +1,35 @@
+version: '3.5'
+services:
+  symfony-api-boilerplate-doc-web:
+    container_name: symfony-api-boilerplate-doc-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 2500:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - symfony-api-boilerplate-doc-be
+    networks:
+      - symfony-api-boilerplate-doc-network
+
+  symfony-api-boilerplate-doc-be:
+    container_name: symfony-api-boilerplate-doc-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    environment:
+      PHP_IDE_CONFIG: serverName=Docker
+      PHP_XDEBUG_ENABLED: 1
+    volumes:
+      - ./:/appdata/www
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    networks:
+      - symfony-api-boilerplate-doc-network
+
+networks:
+  symfony-api-boilerplate-doc-network:
+    external: true

@@ -1,0 +1,140 @@
+openapi: 3.0.0
+servers:
+ - url: http://localhost:250
+info:
+  description: default API V1
+  version: "1.0.0"
+  title: Default API V1
+#  contact:
+#    email: default@default.com
+#  termsOfService: 'https://default_api.com/legal.html'
+tags:
+  - name: Auth and Register User
+    description: Shared Register and Auth Services
+  - name: User
+    description: User services
+paths:
+  allOf:
+    - $ref: './auth/paths.yaml'
+    - $ref: './user/paths.yaml'
+components:
+  securitySchemes:
+     bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+  responses:
+    ConflictException:
+      description: Conflict DomainException
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - class
+              - code
+              - message
+            properties:
+              class:
+                type: string
+                description: Action Not Allowed
+                example: UserInvalidPermissionException
+              code:
+                type: integer
+                description: Error code
+                example: 409
+              message:
+                type: string
+                description: Error Message
+                example: 'User does not have permission'
+    InternalError:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                description: Error code
+                example: 500
+              message:
+                type: string
+                description: Error Message
+                example: 'Internal Error'
+
+    ResourceNotFound:
+      description: ResourceNotFoundException
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - Class
+              - code
+              - message
+            properties:
+              class:
+                type: string
+                description: Instance Short Name Exception
+                example: ResourceNotFoundException
+              code:
+                type: integer
+                description: Error code
+                example: 404
+              message:
+                type: string
+                description: Error Message
+                example: 'Example Entity NotFound'
+  parameters:
+    SearchOrderByParam:
+      in: query
+      name: orderBy
+      required: false
+      schema:
+        type: string
+        default: null
+      example: 'name'
+      description: Order field param
+
+    SearchOrderDirectionParam:
+      in: query
+      name: orderDirection
+      required: false
+      schema:
+        type: string
+        default: null
+        enum: [
+            "ASC",
+            "DESC",
+        ]
+      example: 'ASC'
+      description: Order direction field param
+
+    SearchPageParam:
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+        default: 1
+      example: '5'
+      description: Page result
+
+    SearchPerPageParam:
+      in: query
+      name: perPage
+      required: false
+      schema:
+        type: integer
+        default: 15
+      example: '20'
+      description: Number of items results per page
+
+  schemas:
+    ##MODULES##
+    user:
+      $ref: './user/schemas.yaml'

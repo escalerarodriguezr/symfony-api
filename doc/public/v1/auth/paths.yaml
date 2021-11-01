@@ -1,0 +1,112 @@
+/register/v1/user:
+  post:
+    tags:
+      - Auth and Register User
+    summary: Register User
+    operationId: postUser
+    style: simple
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                required: true
+                description: User name
+                example: 'Fernando'
+              email:
+                type: string
+                required: true
+                description: User email
+                example: 'fernando@api.com'
+              password:
+                type: string
+                required: false
+                description: User Password
+                example: '123456'
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user
+              properties:
+                user:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "02ad717b-1d7a-4f3d-8343-ff71d9341d7d"
+                      description: Unique Id for User
+                    name:
+                      type: string
+                      example: "Fernando"
+                      description: User name
+                    email:
+                      type: string
+                      example: "fernando@api.com"
+                      description: User email
+                    createdOn:
+                      type: string
+                      example: "2021-10-30T19:42:37+00:00"
+                      description: Created DateTime
+                    updatedOn:
+                      type: string
+                      example: "2021-10-30T19:42:37+00:00"
+                      description: Updated DateTime
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"
+
+/api/login_check:
+  post:
+    tags:
+      - Auth and Register User
+    summary: Get Token
+    operationId: getToken
+    style: simple
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                required: true
+                description: Example name
+                example: 'Fernando'
+              password:
+                type: string
+                required: false
+                description: Example lastName
+                example: 'Alonso'
+
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  example: "valid-token"
+                  description: JWT for User
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"

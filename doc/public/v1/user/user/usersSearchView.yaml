@@ -1,0 +1,51 @@
+type: object
+properties:
+  total:
+    type: integer
+    desription: Total items without pagination
+    example: 100
+  perPage:
+    type: integer
+    desription: Num items per page
+    example: 20
+  page:
+    type: integer
+    desription: Current Page
+    example: 2
+  items:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          desription: UserId
+          example: 26
+        name:
+          type: string
+          desription: User Name
+          example: 'Frodo'
+        email:
+          type: string
+          desription: User Email
+          example: 'frodo@frodo.com'
+        active:
+          type: boolean
+          desription: User Active
+          example: true
+        creatorId:
+          type: integer
+          desription: User Creator Id
+          example: 16
+        createdAt:
+          type: string
+          desription: User CreatedAt
+          example: "2021-10-03 21:59:46"
+        updaterId:
+          type: integer
+          desription: User Udater Id
+          example: 17
+        updatedAt:
+          type: string
+          desription: User CreatedAt
+          example: "2021-10-05 21:59:46"

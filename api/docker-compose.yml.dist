@@ -1,0 +1,60 @@
+version: '3.5'
+
+services:
+  symfony-api-boilerplate-web:
+    container_name: symfony-api-boilerplate-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 250:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - symfony-api-boilerplate-be
+    networks:
+      - symfony-api-boilerplate-network
+
+  symfony-api-boilerplate-be:
+    container_name: symfony-api-boilerplate-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    environment:
+      XDEBUG_CLIENT_HOST: 172.17.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=symfony-api-boilerplate
+
+    volumes:
+      - ./:/appdata/www
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    depends_on:
+      - symfony-api-boilerplate-db
+    networks:
+      - symfony-api-boilerplate-network
+
+  symfony-api-boilerplate-db:
+    container_name: symfony-api-boilerplate-db
+    build:
+      context: ./docker/database
+    ports:
+      - 36000:3306
+    environment:
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    volumes:
+      - symfony-api-boilerplate-db-data:/var/lib/mysql
+    networks:
+      - symfony-api-boilerplate-network
+
+volumes:
+  symfony-api-boilerplate-db-data:
+
+networks:
+  symfony-api-boilerplate-network:
+    external: true

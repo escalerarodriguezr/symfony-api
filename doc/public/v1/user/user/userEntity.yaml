@@ -1,0 +1,22 @@
+type: object
+properties:
+  id:
+    type: string
+    example: "02ad717b-1d7a-4f3d-8343-ff71d9341d7d"
+    description: Unique Id for User
+  name:
+    type: string
+    example: "Fernando"
+    description: User name
+  email:
+    type: string
+    example: "fernando@api.com"
+    description: User email
+  createdOn:
+    type: string
+    example: "2021-10-30T19:42:37+00:00"
+    description: Created DateTime
+  updatedOn:
+    type: string
+    example: "2021-10-30T19:42:37+00:00"
+    description: Updated DateTime
