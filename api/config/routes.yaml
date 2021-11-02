@@ -18,3 +18,7 @@ api_change_password_user:
   path: /api/v1/user/{id}/change-password
   controller: App\Controller\User\ChangePasswordUserController
   methods: [PUT]
+api_upload_user_avatar:
+  path: /api/v1/user/{id}/avatar
+  controller: App\Controller\User\UploadUserAvatarController
+  methods: [POST]
