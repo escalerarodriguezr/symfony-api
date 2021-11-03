@@ -14,9 +14,6 @@ class UploadUserAvatarService
     }
 
 
-    /**
-     * @throws \League\Flysystem\FilesystemException
-     */
     public function __invoke(string $userId, UploadUserAvatarRequest $uploadUserAvatarRequest): string
     {
         $user = $this->userRepository->findOneByIdOrFail($userId);

@@ -4,15 +4,12 @@ declare(strict_types=1);
 namespace App\Tests\Unit\User\Service;
 
 use App\Entity\User;
-use App\Http\DTO\User\CreateUserRequest;
 use App\Http\DTO\User\UpdateUserRequest;
 use App\Repository\User\Doctrine\DoctrineUserRepository;
-use App\Service\User\CreateUserService;
 use App\Service\User\UpdateUserService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use function PHPUnit\Framework\isType;
+
 
 class UpdateUserServiceUnitTest extends TestCase
 {
