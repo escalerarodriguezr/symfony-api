@@ -79,7 +79,7 @@ class UploadUserAvatarServiceUnitTest extends TestCase
         $response = $this->uploadUserAvatarService->__invoke($userId, $uploadAvatarRequest);
 
         self::assertIsString($response);
-        
+
     }
 
 

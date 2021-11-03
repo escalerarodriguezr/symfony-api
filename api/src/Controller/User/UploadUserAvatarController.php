@@ -14,10 +14,7 @@ class UploadUserAvatarController
     {
 
     }
-
-    /**
-     * @throws \League\Flysystem\FilesystemException
-     */
+    
     public function __invoke(string $userId, UploadUserAvatarRequest $uploadUserAvatarRequest): JsonResponse
     {
 
@@ -26,7 +23,7 @@ class UploadUserAvatarController
             [
                 'avatarResource' => $avatarResource
             ],
-            Response::HTTP_OK
+            Response::HTTP_CREATED
         );
     }
 
