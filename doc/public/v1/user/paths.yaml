@@ -137,3 +137,50 @@
         $ref: "#/components/responses/ConflictException"
       '500':
         $ref: "#/components/responses/InternalError"
+
+/api/v1/user/{id}/avatar:
+  post:
+    tags:
+      - User
+    summary: Upload UserAvatar
+    operationId: postUploadUserAvatar
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          example: "9f285960-f482-4f1b-9c88-549a1b4"
+          description: UserId
+        required: true
+    requestBody:
+      content:
+        mulitparm/form-data:
+          schema:
+            type: object
+            properties:
+              avatar:
+                type: string
+                format: binary
+                required: true
+    style: simple
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - avatarResource
+              properties:
+                avatarResource:
+                  type: string
+                  example: "avatar/dfjkdhskj43324k$jdkfkds.png"
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"
