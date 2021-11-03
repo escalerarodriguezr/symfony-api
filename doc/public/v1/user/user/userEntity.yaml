@@ -12,6 +12,10 @@ properties:
     type: string
     example: "fernando@api.com"
     description: User email
+  avatarResource:
+    type: string
+    example: "avatar/jdfhdjsfhjdksfhjkdjkd.png"
+    description: User Avatar
   createdOn:
     type: string
     example: "2021-10-30T19:42:37+00:00"

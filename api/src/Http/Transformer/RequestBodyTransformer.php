@@ -12,6 +12,7 @@ class RequestBodyTransformer
 {
     public function transform(Request $request)
     {
+
         switch ($request->headers->get('Content-Type')) {
             case 'application/json':
                 $data = \json_decode($request->getContent(), true);
@@ -20,7 +21,14 @@ class RequestBodyTransformer
                 }
                 break;
             default:
-                throw new BadRequestHttpException('Invalid Content-Type');
+                if(!str_contains($request->headers->get('Content-Type'), 'multipart/form-data')){
+                    throw new BadRequestHttpException('Invalid Content-Type');
+                }
+                $data = \json_decode($request->getContent(), true);
+                if(!empty($data)){
+                    $request->request = new ParameterBag($data);
+                }
+                break;
         }
     }
 }

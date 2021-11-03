@@ -15,6 +15,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $name;
     private string $email;
     private ?string $password;
+    private ?string $avatarResource;
     private \DateTime $createdOn;
     private \DateTime $updatedOn;
 
@@ -24,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->name = $name;
         $this->email = $email;
         $this->password = null;
+        $this->avatarResource = null;
         $this->createdOn = new \DateTime();
         $this->markAsUpdated();
     }
@@ -78,6 +80,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedOn;
     }
 
+    public function getAvatarResource(): ?string
+    {
+        return $this->avatarResource;
+    }
+
+    public function setAvatarResource(?string $avatarResource): void
+    {
+        $this->avatarResource = $avatarResource;
+    }
+
     public function markAsUpdated(): void
     {
         $this->updatedOn = new \DateTime();
@@ -89,6 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'avatarResource' => $this->avatarResource,
             'createdOn' => $this->createdOn->format(DateTimeInterface::RFC3339),
             'updatedOn' => $this->updatedOn->format(DateTimeInterface::RFC3339),
         ];
