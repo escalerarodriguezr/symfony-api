@@ -10,6 +10,10 @@
         <field name="createdOn" type="datetime" />
         <field name="updatedOn" type="datetime"/>
 
+        <one-to-many field="movementCategories" target-entity="App\Entity\MovementCategory" mapped-by="owner">
+
+        </one-to-many>
+
         <unique-constraints>
             <unique-constraint name="U_email_user" columns="email"/>
         </unique-constraints>

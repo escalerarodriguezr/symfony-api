@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
-
 
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -18,6 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $avatarResource;
     private \DateTime $createdOn;
     private \DateTime $updatedOn;
+    private Collection $movementCategories;
 
     public function __construct(string $name, string $email)
     {
@@ -28,6 +30,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->avatarResource = null;
         $this->createdOn = new \DateTime();
         $this->markAsUpdated();
+        $this->movementCategories = new ArrayCollection();
+
     }
 
     public static function createUser(string $name, string $email): self
@@ -95,6 +99,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updatedOn = new \DateTime();
     }
 
+    public function getMovementCategories(): ArrayCollection|Collection
+    {
+        return $this->movementCategories;
+    }
+
+    public function addMovementCategory(MovementCategory $entity): void
+    {
+        if ($this->movementCategories->contains($entity)) {
+            return;
+        }
+
+        $this->movementCategories->add($entity);
+    }
+
+    public function removeMovementCategory(MovementCategory $entity): void
+    {
+        if ($this->movementCategories->contains($entity)) {
+            $this->movementCategories->removeElement($entity);
+        }
+    }
+
+
     public function toArray(): array
     {
         return [
@@ -102,6 +128,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             'name' => $this->name,
             'email' => $this->email,
             'avatarResource' => $this->avatarResource,
+            'movementCategories' => array_map(function (MovementCategory $entity): array {
+                return $entity->toArray();
+            }, $this->movementCategories->toArray()),
             'createdOn' => $this->createdOn->format(DateTimeInterface::RFC3339),
             'updatedOn' => $this->updatedOn->format(DateTimeInterface::RFC3339),
         ];
