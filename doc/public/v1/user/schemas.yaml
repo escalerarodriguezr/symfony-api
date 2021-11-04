@@ -1,5 +1,7 @@
 UserEntity:
   $ref: './user/userEntity.yaml'
+MovementCategoryEntity:
+  $ref: './movement_category/movementCategoryEntity.yaml'
 UsersSearchView:
   $ref: './user/usersSearchView.yaml'
 

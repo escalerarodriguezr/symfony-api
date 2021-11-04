@@ -135,6 +135,6 @@ components:
       description: Number of items results per page
 
   schemas:
-    ##MODULES##
-    user:
-      $ref: './user/schemas.yaml'
+#    ##MODULES##
+#    user:
+#      $ref: './user/schemas.yaml'

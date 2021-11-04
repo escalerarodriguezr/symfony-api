@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="App\Entity\MovementCategory">
+        <id name="id" type="string" column-definition="CHAR(36) NOT NULL" />
+
+        <field name="name" length="255"/>
+        <field name="createdOn" type="datetime" />
+        <field name="updatedOn" type="datetime"/>
+
+        <many-to-one field="owner" target-entity="App\Entity\User" inversed-by="movementCategories">
+            <join-column name="owner_id" referenced-column-name="id" on-delete="CASCADE" />
+        </many-to-one>
+
+        <indexes>
+            <index columns="owner_id" name="IDX_movement_category_owner_id" />
+        </indexes>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
+
+    </entity>
+</doctrine-mapping>

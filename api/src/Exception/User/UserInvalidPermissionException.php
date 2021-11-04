@@ -9,4 +9,9 @@ class UserInvalidPermissionException extends \DomainException
     {
         throw new self(\sprintf('User %s does not have permission to change password to user %s', $actionUserId, $userId));
     }
+
+    public static function fromCreateUserCategoryMovementService(string $actionUserId, string $userId): self
+    {
+        throw new self(\sprintf('User %s does not have permission to create Category Movement to user %s', $actionUserId, $userId));
+    }
 }

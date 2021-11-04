@@ -184,3 +184,49 @@
         $ref: "#/components/responses/ConflictException"
       '500':
         $ref: "#/components/responses/InternalError"
+
+/api/v1/user/{id}/category-movement:
+  post:
+    tags:
+      - User
+    summary: Create UserCategoryMovement
+    operationId: postCreateUserCategoryMovement
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          example: "9f285960-f482-4f1b-9c88-549a1b4"
+          description: UserId
+        required: true
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                required: true
+                example: "Home"
+    style: simple
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - movementCategory
+              properties:
+                movementCategory:
+                  $ref: "#/components/schemas/user/MovementCategoryEntity"
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"
