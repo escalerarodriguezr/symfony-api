@@ -60,6 +60,10 @@ class CreateUserServiceUnitTest extends TestCase
 
         self::assertInstanceOf(User::class, $response);
 
+        self::assertNotNull($response->getActivationCode());
+        self::assertFalse($response->getConfirmedEmail());
+        self::assertFalse($response->getActive());
+
     }
 
 }
