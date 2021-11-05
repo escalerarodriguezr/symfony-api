@@ -1,0 +1,6 @@
+imports:
+    - { resource: services.yaml }
+
+services:
+    App\Service\Shared\TransactionService\TransactionServiceInterface:
+        class: App\Tests\Functional\Service\MockDoctrineTransactionService
