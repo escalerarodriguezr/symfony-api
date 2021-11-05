@@ -16,7 +16,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $name;
     private string $email;
     private ?string $password;
+    private ?string $activationCode;
+    private ?bool $confirmedEmail;
     private ?string $avatarResource;
+    private ?bool $active;
     private \DateTime $createdOn;
     private \DateTime $updatedOn;
     private Collection $movementCategories;
@@ -27,6 +30,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->name = $name;
         $this->email = $email;
         $this->password = null;
+        $this->activationCode = \sha1(\uniqid());
+        $this->confirmedEmail = false;
+        $this->active = false;
         $this->avatarResource = null;
         $this->createdOn = new \DateTime();
         $this->markAsUpdated();
@@ -78,6 +84,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->createdOn;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getActivationCode(): ?string
+    {
+        return $this->activationCode;
+    }
+
+    public function getConfirmedEmail(): ?bool
+    {
+        return $this->confirmedEmail;
+    }
+
+    public function setConfirmedEmail(?bool $confirmedEmail): void
+    {
+        $this->confirmedEmail = $confirmedEmail;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): void
+    {
+        $this->active = $active;
+    }
+
 
     public function getUpdatedOn(): \DateTime
     {
