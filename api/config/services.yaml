@@ -50,3 +50,6 @@ services:
               credentials:
                   key: '%env(resolve:KEY)%'
                   secret: '%env(resolve:SECRET)%'
+
+    App\Service\Shared\TransactionService\TransactionServiceInterface:
+        class: App\Service\Shared\TransactionService\Doctrine\DoctrineTransactionService
