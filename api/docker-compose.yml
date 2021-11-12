@@ -52,6 +52,17 @@ services:
     networks:
       - symfony-api-boilerplate-network
 
+  symfony-api-boilerplate-mailcatcher:
+    container_name: symfony-api-boilerplate-mailcatcher
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080 #client
+      - 1025:1025 #SMTP
+    depends_on:
+      - symfony-api-boilerplate-db
+    networks:
+      - symfony-api-boilerplate-network
+
 volumes:
   symfony-api-boilerplate-db-data:
 

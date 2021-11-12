@@ -7,10 +7,14 @@ namespace App\Tests\Unit\User\Service;
 
 use App\Entity\User;
 use App\Http\DTO\User\CreateUserRequest;
+use App\Messenger\Message\User\RegisterUserMessage;
 use App\Repository\User\Doctrine\DoctrineUserRepository;
 use App\Service\User\CreateUserService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserServiceUnitTest extends TestCase
@@ -18,6 +22,7 @@ class CreateUserServiceUnitTest extends TestCase
     private MockObject|DoctrineUserRepository $userRepository;
     private MockObject|UserPasswordHasherInterface $userPasswordHasher;
     private MockObject|CreateUserRequest $createUserRequest;
+    private MockObject|MessageBusInterface $bus;
     private CreateUserService $createUserService;
 
     public function setUp(): void
@@ -35,7 +40,12 @@ class CreateUserServiceUnitTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->createUserService = new CreateUserService($this->userRepository, $this->userPasswordHasher);
+        $this->bus = $this->getMockBuilder(MessageBusInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+
+        $this->createUserService = new CreateUserService($this->userRepository, $this->userPasswordHasher, $this->bus);
 
     }
 
@@ -56,9 +66,22 @@ class CreateUserServiceUnitTest extends TestCase
             ->method('save')
             ->with($this->isInstanceOf(User::class));
 
+        $message = $this->getMockBuilder(RegisterUserMessage::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->bus
+            ->expects($this->exactly(1))
+            ->method('dispatch')
+            ->with($this->isType('object'))
+            ->willReturn(new Envelope($message));
+
         $response = $this->createUserService->__invoke($this->createUserRequest);
 
         self::assertInstanceOf(User::class, $response);
+        self::assertNotNull($response->getActivationCode());
+        self::assertFalse($response->getConfirmedEmail());
+        self::assertFalse($response->getActive());
 
     }
 
