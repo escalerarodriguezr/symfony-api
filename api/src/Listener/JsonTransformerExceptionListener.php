@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listener;
 
+use App\Exception\User\UserAccountNotActiveException;
 use App\Exception\User\UserAlreadyExistsException;
 use App\Exception\User\UserInvalidPermissionException;
 use App\Exception\User\UserNotFoundException;
@@ -58,7 +59,9 @@ class JsonTransformerExceptionListener
     {
         return [
             UserAlreadyExistsException::class,
-            UserInvalidPermissionException::class
+            UserInvalidPermissionException::class,
+            UserAccountNotActiveException::class
+
         ];
     }
 }
