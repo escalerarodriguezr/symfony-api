@@ -19,7 +19,7 @@ final class Version20211105090617 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE user ADD activation_code VARCHAR(200) NOT NULL, ADD confirmed_email TINYINT(1) NOT NULL DEFAULT 0, ADD active TINYINT(1) NOT NULL DEFAULT 0');
+        $this->addSql('ALTER TABLE user ADD activation_code VARCHAR(200), ADD confirmed_email TINYINT(1) NOT NULL DEFAULT 0, ADD active TINYINT(1) NOT NULL DEFAULT 0');
     }
 
     public function down(Schema $schema): void

@@ -93,6 +93,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->activationCode;
     }
 
+    public function setActivationCode(?string $activationCode): void
+    {
+        $this->activationCode = $activationCode;
+    }
+
     public function getConfirmedEmail(): ?bool
     {
         return $this->confirmedEmail;

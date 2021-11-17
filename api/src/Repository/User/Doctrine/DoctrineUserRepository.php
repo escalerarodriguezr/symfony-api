@@ -51,6 +51,17 @@ class DoctrineUserRepository extends DoctrineBaseRepository
 
     }
 
+    public function findOneByActivationCodeOrFail(string $code): ?User
+    {
+
+        if (null === $user = $this->objectRepository->findOneBy(['activationCode' => $code])) {
+            throw UserNotFoundException::fromActivationCode($code);
+        }
+
+        return $user;
+
+    }
+
     public function findOneByIdWithQueryBuilder(string $id): ?User
     {
         $qb = $this->objectRepository->createQueryBuilder('u');

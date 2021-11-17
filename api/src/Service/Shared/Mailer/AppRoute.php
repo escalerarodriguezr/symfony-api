@@ -5,6 +5,6 @@ namespace App\Service\Shared\Mailer;
 
 abstract class AppRoute
 {
-    public const ACTIVATE_ACCOUNT = '/activate_account';
+    public const ACTIVATE_ACCOUNT = '/activate-account';
 
 }
