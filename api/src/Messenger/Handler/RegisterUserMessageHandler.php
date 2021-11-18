@@ -14,23 +14,17 @@ class RegisterUserMessageHandler implements MessageHandlerInterface
 
     public function __construct(
         private MailerService $mailerService,
-        private string $appHost
+        private string $appClientHost
     )
     {
 
     }
 
-    /**
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\LoaderError
-     */
     public function __invoke(RegisterUserMessage $message): void
     {
         $payload = [
             'name' => $message->getFullname(),
-            'url' => sprintf('%s%s/%s', $this->appHost, AppRoute::ACTIVATE_ACCOUNT, $message->getActivationCode())
+            'url' => sprintf('%s%s/%s', $this->appClientHost, AppRoute::ACTIVATE_ACCOUNT, $message->getActivationCode())
         ];
 
         $this->mailerService->send($message->getEmail(),TwigTemplate::USER_REGISTER, $payload);

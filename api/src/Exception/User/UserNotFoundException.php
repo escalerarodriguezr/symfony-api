@@ -15,4 +15,9 @@ class UserNotFoundException extends \DomainException
     {
         throw new self(\sprintf('User with ID %s not found', $id));
     }
+
+    public static function fromActivationCode(string $code): self
+    {
+        throw new self(\sprintf('User with ActivationCode %s not found', $code));
+    }
 }

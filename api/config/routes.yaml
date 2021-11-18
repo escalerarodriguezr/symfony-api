@@ -22,6 +22,10 @@ api_upload_user_avatar:
   path: /api/v1/user/{id}/avatar
   controller: App\Controller\User\UploadUserAvatarController
   methods: [POST]
+api_activate_user_account:
+  path: /activate-account/{code}
+  controller: App\Controller\User\PutUserActivateAccountByCodeController
+  methods: [PUT]
 
 api_create_user_movement_category:
   path: /api/v1/user/{id}/category-movement
