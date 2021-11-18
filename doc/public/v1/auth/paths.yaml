@@ -110,3 +110,29 @@
         $ref: "#/components/responses/ConflictException"
       '500':
         $ref: "#/components/responses/InternalError"
+
+/activate-account/{code}:
+  put:
+    tags:
+      - Auth and Register User
+    summary: Activate User Account
+    operationId: putActivateUserAccount
+    style: simple
+    parameters:
+      - in: path
+        name: code
+        schema:
+          type: string
+          example: "9f285960-f482-4f1b-9c88-549a1b4"
+          description: ActivationCode
+        required: true
+
+    responses:
+      '200':
+        description: Successful operation
+      '404':
+        $ref: "#/components/responses/ResourceNotFound"
+      '409':
+        $ref: "#/components/responses/ConflictException"
+      '500':
+        $ref: "#/components/responses/InternalError"

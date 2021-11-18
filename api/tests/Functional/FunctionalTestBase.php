@@ -57,15 +57,21 @@ class FunctionalTestBase extends WebTestCase
         return static::$kernel->getContainer()->get('doctrine')->getConnection();
     }
 
-    protected function getPeterId()
+    protected function getPeterId(): string
     {
         $query = sprintf('SELECT id FROM user WHERE email = "%s"', UserFixtures::PETER_EMAIL);
         return self::initDBConnection()->executeQuery($query)->fetchOne();
     }
 
-    protected function getFrodoId()
+    protected function getFrodoId(): string
     {
         $query = sprintf('SELECT id FROM user WHERE email = "%s"', UserFixtures::FRODO_EMAIL);
+        return self::initDBConnection()->executeQuery($query)->fetchOne();
+    }
+
+    protected function getMelkorActivationCode(): string
+    {
+        $query = sprintf('SELECT activation_code FROM user WHERE email = "%s"', UserFixtures::NOT_EMAIL_CONFIRMED_EMAIL);
         return self::initDBConnection()->executeQuery($query)->fetchOne();
     }
 }

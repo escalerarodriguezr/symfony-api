@@ -12,6 +12,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             $appHost: '%env(string:APP_HOST)%'
+            $appClientHost: '%env(string:APP_CLIENT_HOST)%'
             $mediaPath: '%env(resolve:SUBDOMAIN)%'
             $projectDigitalOceanStoragePath: '%env(resolve:PROJECT_PATH)%'
             $mailerDefaultSender: '%env(string:MAILER_DEFAULT_SENDER)%'
